@@ -1,0 +1,1027 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://s1.ax1x.com/2020/10/20/BSbg8s.png">
+  <link rel="icon" type="image/png" href="https://s1.ax1x.com/2020/10/20/BSbg8s.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Mtaun">
+  <meta name="keywords" content="">
+  <title>《内网安全攻防》阅读笔记 - Mtaun</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"mtaun.top","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mtaun' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://images4.alphacoders.com/101/1014028.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《内网安全攻防》阅读笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-08 20:41" pubdate>
+        2020年11月8日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《内网安全攻防》阅读笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="内网安全攻防"><a href="#内网安全攻防" class="headerlink" title="内网安全攻防"></a>内网安全攻防</h1><h2 id="内网渗透测试基础"><a href="#内网渗透测试基础" class="headerlink" title="内网渗透测试基础"></a>内网渗透测试基础</h2><h3 id="内网基础知识"><a href="#内网基础知识" class="headerlink" title="内网基础知识"></a>内网基础知识</h3><ul>
+<li><p>工作组</p>
+</li>
+<li><p>域：有安全边界的计算机集合</p>
+<ul>
+<li>单域：至少两台域服务器，一台DC，一台备用DC</li>
+<li>父子域：父子域的名字用一个“.”代表一个层次</li>
+<li>域树：多个域通过建立信任关系的集合</li>
+<li>域森林：多个域树通过建立信任关系的集合</li>
+<li>域名服务器：用于实现域名和与之对应的IP地址转换的服务器</li>
+</ul>
+</li>
+<li><p>域控制器（DC）</p>
+</li>
+<li><p>活动目录：域环境中提供目录服务的组件，用于存储有关网络对象的信息</p>
+<ul>
+<li>账号集中管理</li>
+<li>软件集中管理</li>
+<li>环境集中管理</li>
+<li>增强安全性</li>
+<li>更可靠，更短的宕机时间</li>
+</ul>
+</li>
+<li><p>安全域的划分</p>
+<ul>
+<li><p>目的：将一组安全等级相同的计算机划入同一网段</p>
+</li>
+<li><p>安全级别最高的内网</p>
+<ul>
+<li>办公区</li>
+<li>核心区</li>
+</ul>
+</li>
+<li><p>安全等级中等的DMZ隔离区：解决安装防火墙后外部网络不能访问内部网络的问题</p>
+<ul>
+<li><p>位于企业内部网络和外部网络之间</p>
+</li>
+<li><p>放置一些必须公开的服务器设施，比如企业WEB服务器，FTP服务器和论坛服务器等</p>
+</li>
+<li><p>访问控制策略</p>
+<ul>
+<li>内网可以访问外网，防火墙需要执行NAT</li>
+<li>内网可以访问DMZ</li>
+<li>外网不能访问内网，防火墙基本策略，如果要访问就要通过VPN</li>
+<li>外网可以访问DMZ，防火墙完成对外地址到服务器实际地址的转换</li>
+<li>DMZ不能访问内网</li>
+<li>DMZ不能访问外网，有例外，比如邮件服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安全等级最低的外网</p>
+</li>
+</ul>
+</li>
+<li><p>域中计算机分类</p>
+<ul>
+<li>域控制器</li>
+<li>成员服务器</li>
+<li>客户机</li>
+<li>独立服务器：不加入域，也不安装活动目录</li>
+</ul>
+</li>
+<li><p>域内权限解读</p>
+<ul>
+<li><p>域本地组：多域用户访问单域资源</p>
+<ul>
+<li>可以从任何域添加用户账户、通用组和全局组，但只能在其所在域内指派权限</li>
+<li>域本地组不能嵌套于其他组中</li>
+<li>主要是用于授予位于本域资源的访问权限</li>
+<li>来自全林，作用于本域</li>
+</ul>
+</li>
+<li><p>全局组：单域用户访问多域资源</p>
+<ul>
+<li>只能在创建该全剧组的域中添加用户和全剧组</li>
+<li>可以嵌套在其他组中</li>
+<li>来自本域，作用于全林</li>
+</ul>
+</li>
+<li><p>通用组</p>
+<ul>
+<li>可以从任何域中添加用户和组</li>
+<li>可以嵌套于其他域组中</li>
+<li>保存在全局编录（GC）中</li>
+<li>来自全林，作用全林</li>
+</ul>
+</li>
+<li><p>A-G-DL-P策略：将用户账号添加到全局组中，将全局组添加到域本地组中，然后为域本地组分配资源权限</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>我是谁：对当前机器角色进行判断</li>
+<li>这是哪：对当前机器所处的网络环境的拓扑结构进行分析和判断</li>
+<li>我在哪：对当前机器所处的区域的判断</li>
+</ul>
+<h3 id="收集本机信息"><a href="#收集本机信息" class="headerlink" title="收集本机信息"></a>收集本机信息</h3><ul>
+<li><p>手动收集本机信息</p>
+<ul>
+<li><p>查询网络配置信息</p>
+<ul>
+<li>ipconfig /all</li>
+</ul>
+</li>
+<li><p>查询操作系统及软件信息</p>
+<ul>
+<li>操作系统和版本信息：systeminfo | findstr /B /C:”OS Name” /C:”OS Version”</li>
+<li>查看系统体系结构：echo %PROCESSOR_ARCHITECTURE%</li>
+<li>查看安装的软件，版本，路径等：wmic product get name,version 或 powershell “Get-WmiObject” -class Win32_Product | Select-Object -Property name,version”</li>
+</ul>
+</li>
+<li><p>查询本机服务信息</p>
+<ul>
+<li>wmic service list brief</li>
+</ul>
+</li>
+<li><p>查询进程列表</p>
+<ul>
+<li>testlist 或 wmic process list brief</li>
+</ul>
+</li>
+<li><p>查看启动程序信息</p>
+<ul>
+<li>wmic startup get command,caption</li>
+</ul>
+</li>
+<li><p>查看计划任务</p>
+<ul>
+<li>schtasks /query /fo LIST /v</li>
+</ul>
+</li>
+<li><p>查看主机开机时间</p>
+<ul>
+<li>net statistics workstation</li>
+</ul>
+</li>
+<li><p>查看用户列表</p>
+<ul>
+<li>查看本机用户列表：net user</li>
+<li>获取本地管理员信息：net localgroup administrators</li>
+<li>查看当前在线用户：query user || qwinsta</li>
+</ul>
+</li>
+<li><p>列出或断开本地计算机与所连接的客户端之间的会话</p>
+<ul>
+<li>net session</li>
+</ul>
+</li>
+<li><p>查询端口列表</p>
+<ul>
+<li>netstat -ano</li>
+</ul>
+</li>
+<li><p>查看补丁列表</p>
+<ul>
+<li>systeminfo 或 wmic qfe get Caption,Description,HotFixID,InstalledOn</li>
+</ul>
+</li>
+<li><p>查询本机共享列表</p>
+<ul>
+<li>net share 或 wmic share get name,path,status</li>
+</ul>
+</li>
+<li><p>查看路由表及所有可用接口的ARP缓存表</p>
+<ul>
+<li>route print 或 arp -a</li>
+</ul>
+</li>
+<li><p>查询防火墙相关配置</p>
+<ul>
+<li><p>关闭防火墙</p>
+<ul>
+<li>windows server 2003 之前：netsh firewall set opmode disable</li>
+<li>windows server 2003 之后：nersh advfirewall set allprofiles state off</li>
+</ul>
+</li>
+<li><p>查看防火墙配置</p>
+<ul>
+<li>netsh firewall show config</li>
+</ul>
+</li>
+<li><p>修改防火墙配置</p>
+<ul>
+<li><p>windows server 2003 之前，允许指定程序全部连接：netsh firewall add allowedprogram c:\nc.exe “allow nc” enable</p>
+</li>
+<li><p>windows server 2003 之后</p>
+<ul>
+<li>允许指定程序进入：nersh advfirewall firewall add rule name=”pass nc” dir=in action=allow program=”c:\nc.exe”</li>
+<li>允许指定程序退出：nersh advfirewall firewall add rule name=”Allow nc” dir=out action=allow program=”c:\nc.exe”</li>
+<li>允许3389端口放行：nersh advfirewall firewall add rule name=”Remote Desktop” protocol=TCP dir=in localport=3389 action=allow</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自定义防火墙日志的存储位置</p>
+<ul>
+<li>netsh advfirewall set currentprofile logging filename “C:\windows\temp\fw.log”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询代理配置情况</p>
+<ul>
+<li>查看127.0.0.1的1080端口：reg query “HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings”</li>
+</ul>
+</li>
+<li><p>查询并开启远程连接服务</p>
+<ul>
+<li><p>查看远程连接端口：REG QUERY “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\WinStations\RDP-Tcp” /V PortNumber</p>
+</li>
+<li><p>在windows server 2003中开启3389端口：wmic path win32_terminalservicesetting where (__CLASS !=””)  call setallowtsconnections 1</p>
+</li>
+<li><p>在Windows Server 2008和Windows Server 2012中开启3389端口</p>
+<ul>
+<li>wmic /namespace:\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS !=””) call setallowtsconnections 1</li>
+<li>wmic /namespace:\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName=’RDP-Tcp’) call setuserauthenticationrequired 1</li>
+<li>reg add “HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER” /v fSingleSessionPerUser /t REG_DWORD /d 0 /f</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自动收集信息</p>
+<ul>
+<li>wmic_info.bat</li>
+</ul>
+</li>
+<li><p>Empire下的主机信息收集</p>
+</li>
+</ul>
+<h3 id="查询当前权限"><a href="#查询当前权限" class="headerlink" title="查询当前权限"></a>查询当前权限</h3><ul>
+<li>查询当前权限：whoami</li>
+<li>获取域SID：whoami /all</li>
+<li>查询指定用户的详细信息：net user XXX /domain</li>
+</ul>
+<h3 id="判断是否存在域"><a href="#判断是否存在域" class="headerlink" title="判断是否存在域"></a>判断是否存在域</h3><ul>
+<li><p>使用ipconfig命令</p>
+<ul>
+<li>执行 ipconfig /all ，可以查看网关IP地址，DNS的IP地址，域名，本机是否和DNS服务器是否处于同一网段等信息</li>
+<li>然后反向解析查询命令nslookup来解析域名的IP地址</li>
+</ul>
+</li>
+<li><p>查看系统详细信息</p>
+<ul>
+<li><p>systeminfo</p>
+<ul>
+<li>域即域名，登陆服务器即域控制器，如果域为WORKGROUP，表示当前服务器不在域内</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询当前登录域及登陆用户信息</p>
+<ul>
+<li>net config workstation</li>
+</ul>
+</li>
+<li><p>判断主域</p>
+<ul>
+<li><p>net time /domain</p>
+<ul>
+<li>存在域，但当前用户不是域用户：发生系统错误5，拒绝访问</li>
+<li>存在域，且当前用户是域用户：显示时间</li>
+<li>不存在域：找不到…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="探测域内存活主机"><a href="#探测域内存活主机" class="headerlink" title="探测域内存活主机"></a>探测域内存活主机</h3><ul>
+<li><p>利用NetBIOS快速探测内网</p>
+</li>
+<li><p>利用ICMP协议快速探测内网</p>
+<ul>
+<li>for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr “TTL=”</li>
+</ul>
+</li>
+<li><p>利用ARP扫描探测内网</p>
+<ul>
+<li>arp-scan工具：目标机中运行arp.exe -t 192.168.1.0/20</li>
+<li>Empire中的arpscan模块：usemodule situational_awareness/network/arpscan</li>
+<li>Nishang中的Invoke-ARPScan.ps1脚本：目标机中运行或远程加载脚本 powershell.exe -exec bypass -Command “&amp;{Import-Module C:\windows\temp\Invoke-ARPScan.ps1; Invoke-ARPScan -CIDR 192.168.1.0/20}” &gt;&gt; C:\windows\temp\log.txt</li>
+</ul>
+</li>
+<li><p>通过常规UDP/TCP端口扫描内网</p>
+<ul>
+<li>ScanLine工具</li>
+</ul>
+</li>
+</ul>
+<h3 id="扫描域内端口"><a href="#扫描域内端口" class="headerlink" title="扫描域内端口"></a>扫描域内端口</h3><ul>
+<li><p>利用telnet命令进行扫描</p>
+<ul>
+<li>telnet DC port</li>
+</ul>
+</li>
+<li><p>S扫描器</p>
+</li>
+<li><p>Metasploit端口扫描</p>
+</li>
+<li><p>PowerSploit的Invoke-portscan.ps1脚本</p>
+</li>
+<li><p>Nishang的Invoke-PortScan模块</p>
+</li>
+</ul>
+<h3 id="收集域内基础信息"><a href="#收集域内基础信息" class="headerlink" title="收集域内基础信息"></a>收集域内基础信息</h3><ul>
+<li><p>查询域</p>
+<ul>
+<li>net view /domain</li>
+</ul>
+</li>
+<li><p>查询域内计算机</p>
+<ul>
+<li>net view /domain:HACKE</li>
+</ul>
+</li>
+<li><p>查询域内所有用户列表</p>
+<ul>
+<li>net group /domain</li>
+</ul>
+</li>
+<li><p>查询所有域成员计算机列表</p>
+<ul>
+<li>net group “domain computers” /domain</li>
+</ul>
+</li>
+<li><p>获取域密码信息</p>
+<ul>
+<li>net accounts /domain</li>
+</ul>
+</li>
+<li><p>获取域信任信息</p>
+<ul>
+<li>nltest /domain_trusts</li>
+</ul>
+</li>
+</ul>
+<h3 id="查找域控制器"><a href="#查找域控制器" class="headerlink" title="查找域控制器"></a>查找域控制器</h3><ul>
+<li><p>查看域控制器的机器名</p>
+<ul>
+<li>nltest /DCLIST:hacke</li>
+</ul>
+</li>
+<li><p>查看域控制器的主机名</p>
+<ul>
+<li>Nslookup -type=SRV _ldap._tcp</li>
+</ul>
+</li>
+<li><p>查看当前时间</p>
+<ul>
+<li>net time /domain</li>
+</ul>
+</li>
+<li><p>查看域控制器组</p>
+<ul>
+<li>net group “Domain Controllers” /domain</li>
+<li>netdom query pdc</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取域内的用户和管理员信息"><a href="#获取域内的用户和管理员信息" class="headerlink" title="获取域内的用户和管理员信息"></a>获取域内的用户和管理员信息</h3><ul>
+<li><p>查询所有域用户列表</p>
+<ul>
+<li><p>向域控制器查询</p>
+<ul>
+<li>net user /domain</li>
+</ul>
+</li>
+<li><p>获取域内用户的详细信息</p>
+<ul>
+<li>wmic useraccount get /all</li>
+</ul>
+</li>
+<li><p>查看存在的用户</p>
+<ul>
+<li>dsquery user</li>
+</ul>
+</li>
+<li><p>查询本地管理员组用户</p>
+<ul>
+<li>net localgroup administrators</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询域管理员用户组</p>
+<ul>
+<li><p>查询域管理员用户</p>
+<ul>
+<li>net group “domain admins” /domain</li>
+</ul>
+</li>
+<li><p>查询管理员用户组</p>
+<ul>
+<li>net group “Enterprise Admins” /domain</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="定位域管理员"><a href="#定位域管理员" class="headerlink" title="定位域管理员"></a>定位域管理员</h3><ul>
+<li><p>定位域管理员的常规渠道：1、日志；2、会话</p>
+</li>
+<li><p>常用域管理员定位工具</p>
+<ul>
+<li><p>psloggedon.exe</p>
+<ul>
+<li>可以查看本地登录的用户和通过本地计算机或远程计算机的资源登录的用户。原理是检查注册表，某些功能需要管理员权限。</li>
+</ul>
+</li>
+<li><p>PVEFindADUser.exe</p>
+<ul>
+<li>查找活动用户登陆的位置、枚举域用户，以及查找在特定计算机上登录的用户，包括本地用户，通过RDP登录的用户，用于运行服务和计算任务的用户。需要.NET Framework 2.0环境，并且需要具有管理员权限。</li>
+</ul>
+</li>
+<li><p>netview.exe</p>
+<ul>
+<li>枚举工具，使用WinAPI枚举系统，利用NetSessionEnum找寻登陆会话，利用NetShareEnum找寻共享，利用NetWkstaUserEnum枚举登录的用户，查询共享入口和有价值的用户。绝大部分功能不需要管理员权限。</li>
+</ul>
+</li>
+<li><p>Nmap的NSE脚本</p>
+<ul>
+<li>如果存在域账户或者本地账户，就可以使用Nmap的smb-enum-sessions.nse引擎获取远程机器的登录会话。</li>
+</ul>
+</li>
+<li><p>PowerView脚本</p>
+<ul>
+<li>Invoke-StealthUserHunter：只需要一次查询就可以获取域里面的所有用户。方法：从user.HomeDirectories中提取所有用户，并对每台服务器进行Get-NetSessions获取。隐蔽性较高，但不全面。</li>
+<li>Invoke-UserHunter：找到域内特定的用户群，接受用户名、用户列表和域组查询，接收一个主机列表或查询可用的主机域名。使用Get-NetSessions和Get-NetLoggedon扫描每台服务器并对扫描结果进行比较。</li>
+</ul>
+</li>
+<li><p>Empire的user_hunter模块</p>
+<ul>
+<li>查找域管理员登录的机器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="查找域管理进程"><a href="#查找域管理进程" class="headerlink" title="查找域管理进程"></a>查找域管理进程</h3><ul>
+<li><p>本机检查</p>
+<ul>
+<li><p>获取域管理员列表</p>
+<ul>
+<li>net group “domain admins” /domain</li>
+</ul>
+</li>
+<li><p>列出本机的所有进程及进程用户</p>
+<ul>
+<li>tasklist /v</li>
+</ul>
+</li>
+<li><p>寻找进程所有者为域管理员的进程</p>
+</li>
+</ul>
+</li>
+<li><p>查询域控制器的域用户会话</p>
+<ul>
+<li><p>查询域控制器列表</p>
+<ul>
+<li>net group “Domain Controllers” /domain</li>
+</ul>
+</li>
+<li><p>收集域管理员列表</p>
+<ul>
+<li>net group “domain admins” /domain</li>
+</ul>
+</li>
+<li><p>收集所有活动域的会话列表</p>
+<ul>
+<li>netsess.exe</li>
+</ul>
+</li>
+<li><p>交叉引用域管理员列表与活动会话列表</p>
+<ul>
+<li>FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i &amp;&amp; @netsess -h %i 2&gt;nul &gt; sessions.txt &amp;&amp; FOR /F %a in (admins.txt) DO @type sessions.txt | @findstr /I %a </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询远程系统中运行的任务</p>
+<ul>
+<li><p>该脚本将目标域系统列表添加到ips.txt文件中，将收集的域管理员列表添加到names.txt中</p>
+<ul>
+<li>FOR /F %i in (ips.txt) DO @echo [+] %i &amp;&amp; @tasklist /V /S %i /U user /P password 2&gt;NUL &gt; output.txt &amp;&amp; FOR /F %n in (names.txt) DO @type output.txt | findstr %n &gt; NUL &amp;&amp; echo [!] %n was found running a process on %i &amp;&amp; pause</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>扫描远程系统的NetBIOS信息</p>
+<ul>
+<li><p>该脚本将目标域系统列表添加到ips.txt文件中，将收集的域管理员列表添加到admins.txt中</p>
+<ul>
+<li>FOR /F %i in (ips.txt) DO @echo [+] Checking %i &amp;&amp; nbtstat -A %i 2&gt;NUL &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; echo [!] %n was found logged into %i</li>
+</ul>
+</li>
+<li><p>该脚本将目标域系统列表添加到ips.txt文件中，将收集的域管理员列表添加到admins.txt中，和nbtscan工具置于同一目录下</p>
+<ul>
+<li>FOR /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtscan -f %i 2&gt;NUL &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; echo [!] %n was found logged into %i</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="利用PowerShell收集域信息"><a href="#利用PowerShell收集域信息" class="headerlink" title="利用PowerShell收集域信息"></a>利用PowerShell收集域信息</h3><ul>
+<li><p>四种权限</p>
+<ul>
+<li>Restricted 默认设置，不允许执行任何脚本</li>
+<li>Allsigned 只能运行经过证书验证的脚本</li>
+<li>Unrestricted 权限最高，可以执行任意脚本</li>
+<li>RemoteSigned 对本地脚本不进行限制，对来自网络的脚本必须验证其签名</li>
+</ul>
+</li>
+<li><p>PowerView</p>
+</li>
+</ul>
+<h3 id="域分析工具BloodHound"><a href="#域分析工具BloodHound" class="headerlink" title="域分析工具BloodHound"></a>域分析工具BloodHound</h3><h3 id="敏感信息防护"><a href="#敏感信息防护" class="headerlink" title="敏感信息防护"></a>敏感信息防护</h3><ul>
+<li><p>资料，数据，文件的定位流程</p>
+<ul>
+<li>定位内部人事组织结构</li>
+<li>在内部人事组织结构中寻找需要监视的人员</li>
+<li>定位相关人员的机器</li>
+<li>监视相关人员存放文档的位置</li>
+<li>列出存放文档的服务器的目录</li>
+</ul>
+</li>
+<li><p>重点核心业务机器及敏感信息</p>
+</li>
+<li><p>应用与文件形式信息</p>
+</li>
+</ul>
+<h3 id="分析域内网划分情况及拓扑结构"><a href="#分析域内网划分情况及拓扑结构" class="headerlink" title="分析域内网划分情况及拓扑结构"></a>分析域内网划分情况及拓扑结构</h3><ul>
+<li><p>基本架构</p>
+</li>
+<li><p>域内网段划分</p>
+<ul>
+<li>DMZ：在外围Web环境中拿到的权限都在DMZ中</li>
+<li>办公区</li>
+<li>核心区</li>
+</ul>
+</li>
+<li><p>多层域结构</p>
+</li>
+<li><p>绘制内网拓扑图</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/31/%E7%99%BD%E5%B8%BD%E5%AD%90/">
+                        <span class="hidden-mobile">《白帽子讲Web安全》阅读笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

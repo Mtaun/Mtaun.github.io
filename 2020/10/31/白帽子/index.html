@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://s1.ax1x.com/2020/10/20/BSbg8s.png">
+  <link rel="icon" type="image/png" href="https://s1.ax1x.com/2020/10/20/BSbg8s.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Mtaun">
+  <meta name="keywords" content="">
+  <title>《白帽子讲Web安全》阅读笔记 - Mtaun</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"mtaun.top","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mtaun' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://images4.alphacoders.com/101/1014028.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《白帽子讲Web安全》阅读笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-31 22:22" pubdate>
+        2020年10月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      79
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《白帽子讲Web安全》阅读笔记</h1>
+            
+            <div class="markdown-body">
+              <h2 id="第一章-安全世界观"><a href="#第一章-安全世界观" class="headerlink" title="第一章 安全世界观"></a>第一章 安全世界观</h2><h3 id="1、安全问题的本质是信任的问题"><a href="#1、安全问题的本质是信任的问题" class="headerlink" title="1、安全问题的本质是信任的问题"></a>1、安全问题的本质是信任的问题</h3><h3 id="2、白帽子兵法："><a href="#2、白帽子兵法：" class="headerlink" title="2、白帽子兵法："></a>2、白帽子兵法：</h3><p><strong>1、Secure by Default 原则</strong>：更多地使用白名单</p>
+<p><strong>2、Defense in Depth 纵深防御原则</strong>：不用层面不同方案，相互配合构成整体，正确地方做正确的事</p>
+<p><strong>3、数据与代码分离原则</strong></p>
+<p><strong>4、不可预测性原则</strong></p>
+<h2 id="第二章-浏览器安全"><a href="#第二章-浏览器安全" class="headerlink" title="第二章 浏览器安全"></a>第二章 浏览器安全</h2><h3 id="1、同源策略"><a href="#1、同源策略" class="headerlink" title="1、同源策略"></a>1、同源策略</h3><p>浏览器的同源策略，限制了来自不同源的 “document” 或脚本，对当前的 “document” 读取或设置某些属性</p>
+<h3 id="2、浏览器挂马和浏览器沙箱"><a href="#2、浏览器挂马和浏览器沙箱" class="headerlink" title="2、浏览器挂马和浏览器沙箱"></a>2、浏览器挂马和浏览器沙箱</h3><p>在网页中插入一段恶意代码，利用浏览器漏洞执行任意代码的攻击方式，称为“挂马”</p>
+<p>Sandbox让不可信任的代码运行在一定的环境，限制不可信任的代码访问隔离区之外的资源</p>
+<h3 id="3、恶意网址拦截"><a href="#3、恶意网址拦截" class="headerlink" title="3、恶意网址拦截"></a>3、恶意网址拦截</h3><p>基于黑名单</p>
+<h3 id="4、其他"><a href="#4、其他" class="headerlink" title="4、其他"></a>4、其他</h3><p>1、微软IE8 XSS Filter的过滤规则</p>
+<p>2、XSS攻击在没有第三方插件帮助的情况下，无法控制HTTP头，Firefox推出的CSP做法是由服务器端返回一个描述页面应该遵守的安全策略的HTTP头，只不过配置复杂，维护成本大</p>
+<p>3、不同浏览器对于畸形浏览器的处理可能会被利用</p>
+<p>4、浏览器插件也可以被利用</p>
+<h2 id="第三章-XSS"><a href="#第三章-XSS" class="headerlink" title="第三章 XSS"></a>第三章 XSS</h2><h3 id="1、XSS-跨站脚本攻击"><a href="#1、XSS-跨站脚本攻击" class="headerlink" title="1、XSS 跨站脚本攻击"></a>1、XSS 跨站脚本攻击</h3><p>指通过”HTML注入“篡改了网页，插入了恶意的脚本，从而在用户浏览网页时，控制用户的浏览器的一种攻击</p>
+<h3 id="2、分类"><a href="#2、分类" class="headerlink" title="2、分类"></a>2、分类</h3><h4 id="1、反射型XSS"><a href="#1、反射型XSS" class="headerlink" title="1、反射型XSS"></a>1、反射型XSS</h4><p>简单地把用户输入的数据”反射“给浏览器，一般来说需要诱使用户”点击“一个恶意链接</p>
+<h4 id="2、存储型XSS"><a href="#2、存储型XSS" class="headerlink" title="2、存储型XSS"></a>2、存储型XSS</h4><p>会把用户输入的数据”存储“在服务器端</p>
+<h4 id="3、DOM-Based-XS"><a href="#3、DOM-Based-XS" class="headerlink" title="3、DOM Based XS"></a>3、DOM Based XS</h4><p>效果上来说也是反射型XSS</p>
+<h3 id="4、一些作用"><a href="#4、一些作用" class="headerlink" title="4、一些作用"></a>4、一些作用</h3><p>1、Cookie窃取，达到登录用户账户的目的</p>
+<p>2、构造get和post请求</p>
+<p>3、钓鱼，例如伪造登录框等</p>
+<p>4、识别用户浏览器，用来实施一次精准的浏览器内存攻击，植入木马等</p>
+<p>5、识别用户安装的软件，判断软件，选择对应的浏览器漏洞，最终植入木马</p>
+<p>6、通过CSS查看用户历史浏览记录，通过浏览器会将点击过的链接示以不同的颜色来判断历史记录（只不过已经被修了</p>
+<p>7、获取真实IP，js本身没有提供获取本地IP的能力，所以一般还要结合第三方软件，例如Java Applet的接口，还可以是Flash，iTunes，Office Word，QuickTime等</p>
+<p>8、XSS Worm</p>
+<h3 id="5、一些攻击平台"><a href="#5、一些攻击平台" class="headerlink" title="5、一些攻击平台"></a>5、一些攻击平台</h3><p>1、<a target="_blank" rel="noopener" href="https://code.google.com/archive/p/attackapi/">Attack API</a></p>
+<p>2、BeEF（好像无了？）</p>
+<p>3、XSS-Proxy</p>
+<h3 id="6、一些构造技巧"><a href="#6、一些构造技巧" class="headerlink" title="6、一些构造技巧"></a>6、一些构造技巧</h3><p>1、利用字符编码绕过转义符号，例如GBK/GB2312编码下，”%c1\“组合在一起会成为一个Unicode字符从而绕开转义符号</p>
+<p>2、绕过长度限制的方法：1）利用Event； 2）利用location.hash； 3）利用注释符；</p>
+<p>3、&lt;base&gt;标签，定义所有使用相对路径标签的hosting地址</p>
+<p>4、window.name 很多时候不受同源策略的限制</p>
+<h3 id="7、其他"><a href="#7、其他" class="headerlink" title="7、其他"></a>7、其他</h3><p>1、Apache Expect Header XSS</p>
+<p>2、Anehta的回旋镖</p>
+<p>3、Flash XSS</p>
+<h3 id="8、防御XSS"><a href="#8、防御XSS" class="headerlink" title="8、防御XSS"></a>8、防御XSS</h3><p><strong>1、HttpOnly</strong>：解决XSS的Cookie劫持攻击</p>
+<p><strong>2、输入检查</strong>：过滤或编码特殊字符，匹配XSS的特征等</p>
+<p><strong>3、输出检查</strong>：使用安全的编码函数，OWASP ESAPI中有一个非常严格且安全的JavascriptEncode的实现可以调用</p>
+<h3 id="9、正确地防御XSS"><a href="#9、正确地防御XSS" class="headerlink" title="9、正确地防御XSS"></a>9、正确地防御XSS</h3><p><strong>XSS的本质还是一种“HTML注入”，用户的数据被当作了HTML代码一部分来执行，从而混淆了原来的语义，产生了新的语义。</strong></p>
+<p>对于XSS可能发生的场景一一解决</p>
+<p><strong>1、在HTML标签中输出</strong></p>
+<p>防御方法：对变量使用HtmlEncode</p>
+<p><strong>2、在HTML属性中输出</strong></p>
+<p>防御方法：对变量使用HtmlEncode或者采用OWASP ESAPI中更严格的HtmlEncode</p>
+<p><strong>3、在&lt;script&gt;标签中输出</strong></p>
+<p>防御方法：使用JavascriptEncode</p>
+<p><strong>4、在事件中输出</strong></p>
+<p>防御方法：使用JavascriptEncode</p>
+<p><strong>5、在CSS中输出</strong></p>
+<p>防御方法：使用OWASP ESAPI中的encodeForCSS()函数</p>
+<p><strong>6、在地址中输出：</strong></p>
+<p>伪协议例如javascript，vbscript，dataURL等都可能导致脚本执行</p>
+<p>防御方法：先检查变量是否以http开头，如果不是则自动添加，然后再对变量进行URLEncode</p>
+<h3 id="10、处理富文本"><a href="#10、处理富文本" class="headerlink" title="10、处理富文本"></a>10、处理富文本</h3><p>网站允许用户提交一些自定义的HTML代码，称之为富文本</p>
+<p>防御手段应对标签，属性，时间进行白名单过滤，也要尽可能禁止用户自定义CSS和style，如果一定要允许用户自定义样式，则只能像过滤富文本那样过滤CSS</p>
+<p>目前最好的XSS Filter是OWASP上的一个开源项目：Anti-Samy</p>
+<p>在php中可以使用开源项目：HTMLPurify</p>
+<h3 id="11、防御DOM-Based-XSS"><a href="#11、防御DOM-Based-XSS" class="headerlink" title="11、防御DOM Based XSS"></a>11、防御DOM Based XSS</h3><p> 从javascipt输出到html也相当于一次XSS输出的过程，需要分语境使用不同的编码函数</p>
+<h2 id="第四章-CSRF"><a href="#第四章-CSRF" class="headerlink" title="第四章 CSRF"></a>第四章 CSRF</h2><h3 id="1、CSRF跨站点请求伪造"><a href="#1、CSRF跨站点请求伪造" class="headerlink" title="1、CSRF跨站点请求伪造"></a>1、CSRF跨站点请求伪造</h3><p>挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法</p>
+<h3 id="2、进阶"><a href="#2、进阶" class="headerlink" title="2、进阶"></a>2、进阶</h3><h4 id="1、浏览器的Cookie策略"><a href="#1、浏览器的Cookie策略" class="headerlink" title="1、浏览器的Cookie策略"></a>1、浏览器的Cookie策略</h4><p>1、浏览器所持有的Cookie分为两种，一种是“Session cookie”，又称“临时Cookie“，一种是”Third-party Cookie“，又称”本地Cookie“</p>
+<p>2、Session cookie在浏览器关闭后失效，Third-party Cookie在服务器Set-Cookie时指定的Expire时间后失效</p>
+<p>3、若是一个网站设置了Session cookie，在浏览器进程的生命周期内，即使打开了新的tab页，也是有效的，Session cookie保存在浏览器进程的内存空间中，而Third-party Cookie保存在本地</p>
+<p>4、如果浏览器从一个域的页面中，要加载另一个域的资源，由于安全原因，某些浏览器会阻止Third-party Cookie的发送</p>
+<h4 id="2、P3P头的副作用"><a href="#2、P3P头的副作用" class="headerlink" title="2、P3P头的副作用"></a>2、P3P头的副作用</h4><p>P3P Header是W3C制定的一项关于隐私的标准，全称是The Platform for Privacy Preferences，如果网站返回给浏览器的HTTP头中包含P3P头，在某种程度上说，将允许浏览器发送第三方Cookie</p>
+<h4 id="3、GET和POST"><a href="#3、GET和POST" class="headerlink" title="3、GET和POST"></a>3、GET和POST</h4><p>CSRF攻击不只能由GET请求发起，也可以是POST，例如</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>CSRF<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;http://192.168.1.188/mycode/csrf.php&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;test&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;pass&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">var</span> f=<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;test&quot;</span>);</span><br><span class="javascript">    f.getElementsByTagName(<span class="hljs-string">&quot;input&quot;</span>)[<span class="hljs-number">0</span>].value=<span class="hljs-string">&quot;user&quot;</span>;</span><br><span class="javascript">    f.getElementsByTagName(<span class="hljs-string">&quot;input&quot;</span>)[<span class="hljs-number">1</span>].value=<span class="hljs-string">&quot;pass&quot;</span>;</span><br>    f.submit();<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4、Flash-CSRF"><a href="#4、Flash-CSRF" class="headerlink" title="4、Flash CSRF"></a>4、Flash CSRF</h4><p>Flash有很多方式发起包括POST在内的网络请求，例如URLRequest，getURL，loadVars等</p>
+<h4 id="5、CSRF-Worm"><a href="#5、CSRF-Worm" class="headerlink" title="5、CSRF Worm"></a>5、CSRF Worm</h4><h3 id="4、防御CSRF"><a href="#4、防御CSRF" class="headerlink" title="4、防御CSRF"></a>4、防御CSRF</h3><h4 id="1、验证码"><a href="#1、验证码" class="headerlink" title="1、验证码"></a>1、验证码</h4><p>最简洁而有效，但不能作为最主要的解决方案</p>
+<h4 id="2、Referer-Check"><a href="#2、Referer-Check" class="headerlink" title="2、Referer Check"></a>2、Referer Check</h4><p>用于检测请求是否来自合法的源，缺陷在于服务器并非什么时候都能收到Referer，很多时候处于隐私保护的考虑，还有在某些情况下例如HTTPS跳转到HTTP，浏览器都不会发送Referer</p>
+<h3 id="5、CSRF的本质"><a href="#5、CSRF的本质" class="headerlink" title="5、CSRF的本质"></a>5、CSRF的本质</h3><p>现在对于CSRF的防御，一致的做法是使用一个token</p>
+<h4 id="1、本质"><a href="#1、本质" class="headerlink" title="1、本质"></a>1、本质</h4><p><strong>CSRF能够攻击成功的本质原因是重要操作的所有参数都是可以被攻击者猜到的</strong></p>
+<p>攻击者只有猜测出URL的所有参数和参数值，才能成功的构造一个伪造的请求，因此可以想到这样一个解决方案：把参数加密，或者使用一些伪随机数，但是这个方法也有问题，<strong>首先</strong>是URL变得非常难读，对用户不友好，<strong>其次是</strong>如果加密的参数每次都改变，某些URL将无法被用户收藏，<strong>最后</strong>普通参数如果也被加密或者哈希，将会给数据分析工作带来很大的困扰。</p>
+<p>因此使用一个更加通用的方法来解决这个问题，就是使用<strong>Anti CSRF Token</strong></p>
+<h4 id="2、Token的使用方法"><a href="#2、Token的使用方法" class="headerlink" title="2、Token的使用方法"></a>2、Token的使用方法</h4><p>原URL不变，新增一个参数Token，这个Token的值是足够随机的，必须使用足够安全的随机数生成算法，或采用真随机数生成器，为用户和服务器共同持有，不能被第三者知晓，实际应用中，Token可以放在用户的Session中，或者浏览器的Cookie中。</p>
+<p>Token需要同时放在表单和Session中，在提交请求时，服务器只需验证表单中的Token，和用户Session（或Cookie）中的Token是否一致，一致则合法，不一致则可能发生CSRF攻击</p>
+<h4 id="3、Token的使用原则"><a href="#3、Token的使用原则" class="headerlink" title="3、Token的使用原则"></a>3、Token的使用原则</h4><p>1、足够随机</p>
+<p>2、为了使用方便，可以允许在一个用户的有效生命周期内，在Token被消耗掉前都使用同一个Token，但是如果用户已经提交了表单，则这个Token已经消耗掉，应该重新生成一个新的Token</p>
+<p>3、一个页面消耗掉Token后，其他页面可能还保存着之前的Token，因此可以考虑生成多个Token来解决多页面共存的情况</p>
+<p>4、注意保密性。尽可能把Token放在表单中，把敏感操作由GET改为POST，以form或AJAX的形式提交，可以避免Token泄露</p>
+<p>5、CSRF的Token仅用于对抗CSRF的攻击，网站还存在XSS时，这个方案就无效了，因为XSS可以模拟客户端浏览器执行任意操作，攻击者完全可以请求页面后，读出页面内容里的Token值，然后构造出一个合法的请求，这个过程可以称之为XSRF。</p>
+<h2 id="第五章-点击劫持"><a href="#第五章-点击劫持" class="headerlink" title="第五章 点击劫持"></a>第五章 点击劫持</h2><h3 id="1、ClickJacking-点击劫持"><a href="#1、ClickJacking-点击劫持" class="headerlink" title="1、ClickJacking 点击劫持"></a>1、ClickJacking 点击劫持</h3><p>攻击者使用一个透明的，不可见的iframe，覆盖在一个页面上，然后诱使用户在该网页上进行操作，此使用户将在不知情的情况下点击透明的iframe页面，通过调整iframe的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上。</p>
+<h3 id="2、Flash点击劫持"><a href="#2、Flash点击劫持" class="headerlink" title="2、Flash点击劫持"></a>2、Flash点击劫持</h3><p>通过Flash构造点击劫持，弯沉一系列复杂的动作后，最终控制用户电脑的摄像头（已修复）</p>
+<h3 id="3、图片覆盖攻击"><a href="#3、图片覆盖攻击" class="headerlink" title="3、图片覆盖攻击"></a>3、图片覆盖攻击</h3><h3 id="4、拖拽劫持与数据窃取"><a href="#4、拖拽劫持与数据窃取" class="headerlink" title="4、拖拽劫持与数据窃取"></a>4、拖拽劫持与数据窃取</h3><p>主流的浏览器都有drag-and-drop API 接口，拖拽劫持的思路就是诱使用户从隐藏的不可见的iframe中拖拽出攻击者希望得到的数据，然后放到攻击者能控制的另一个页面中，从而窃取数据。（突破同源策略）</p>
+<h3 id="5、TapJacking-触屏劫持"><a href="#5、TapJacking-触屏劫持" class="headerlink" title="5、TapJacking 触屏劫持"></a>5、TapJacking 触屏劫持</h3><h3 id="6、防御ClickJacking"><a href="#6、防御ClickJacking" class="headerlink" title="6、防御ClickJacking"></a>6、防御ClickJacking</h3><h4 id="1、frame-busting"><a href="#1、frame-busting" class="headerlink" title="1、frame busting"></a>1、frame busting</h4><p>一段用于禁止iframe嵌套的js代码，但是很容易绕开</p>
+<h4 id="2、X-Frame-Options"><a href="#2、X-Frame-Options" class="headerlink" title="2、X-Frame-Options"></a>2、X-Frame-Options</h4><p>一个HTTP头，当值为DENY时，浏览器会拒绝当前页面加载任何frame页面，若值为SAMEORIGIN，则frame页面的地址只能为同源域名下的页面，若值为ALLOW-FROM，则可以定义允许frame加载的页面地址</p>
+<h2 id="第六章-HTML5安全"><a href="#第六章-HTML5安全" class="headerlink" title="第六章 HTML5安全"></a>第六章 HTML5安全</h2><h3 id="1、HTML5新标签"><a href="#1、HTML5新标签" class="headerlink" title="1、HTML5新标签"></a>1、HTML5新标签</h3><p><strong>1、新标签的XSS</strong>：HTML5新的标签可能引发新的XSS</p>
+<p><strong>2、iframe的sandbox</strong>：使用sandbox这一个属性后，iframe标签加载的内容被视为一个独立的“源”，其中的脚本将被禁止执行，表单被禁止提交，插件被禁止加载，指向其他浏览对象的链接也会禁止，还可以通过参数来支持更精确的控制，极大增强了应用使用iframe的安全性</p>
+<p><strong>3、Link Types</strong>：noreferr 指定noreferer后浏览器在请求该标签指定的地址时将不再发送Referer</p>
+<p><strong>4、Canvas</strong>：可以用来在页面中直接操作图片对象，也可以直接操作像素，构造出图片区域，例如用来破解验证码</p>
+<h3 id="2、其他安全问题"><a href="#2、其他安全问题" class="headerlink" title="2、其他安全问题"></a>2、其他安全问题</h3><p><strong>1、Cross-Origin Resource Sharing</strong>：Origin Header用于标记HTTP标记的“源”，服务器端通过识别浏览器自动带上的Origin Header，来判断浏览器的请求是否来自一个合法的“源”，用于防范CSRF，不像Referer那么容易被伪造或清空。</p>
+<p><strong>2、postMessage-跨窗口传递消息</strong>：允许每一个window（包括当前窗口，弹出窗口，iframes等）对象往其他的窗口发送文本消息，从而实现跨窗口的消息传递，并不受同源策略的影响。有两个安全问题需要注意：1）必要时，可以在接受窗口验证Domain，甚至验证URL，以防止来自非法页面的消息；2）如果将消息写入innerHTML，甚至直接写入script中，则可能会导致DOM based XSS的产生。利用postMessage()给父窗口发送消息，可以突破将js代码限制在其中的iframe sandbox。</p>
+<p><strong>3、Web Storage</strong>：分为Session Storage，Local Storage，前者关闭浏览器就会消失，后者会一直存在。Web Storage就像一个非关系型数据库，由key-value对组成，可以用js代码对其进行操作。Firefox单独实现了一个globalStorage，基于SQLite实现。受同源策略的约束，每个域的信息只会保存在自己的域下。攻击者可能将恶意代码保存在Web Storage中，从而实现跨页面攻击。</p>
+<h2 id="第七章-注入攻击"><a href="#第七章-注入攻击" class="headerlink" title="第七章 注入攻击"></a>第七章 注入攻击</h2><h3 id="1、注入攻击的本质"><a href="#1、注入攻击的本质" class="headerlink" title="1、注入攻击的本质"></a>1、注入攻击的本质</h3><p>注入攻击的本质是<strong>把用户输入的数据当作代码执行</strong>，其中有<strong>两个关键点，一是用户能够控制输入，二是原本程序要执行的代码，拼接了用户输入的数据</strong></p>
+<h3 id="2、SQL注入"><a href="#2、SQL注入" class="headerlink" title="2、SQL注入"></a>2、SQL注入</h3><h4 id="1、命令执行"><a href="#1、命令执行" class="headerlink" title="1、命令执行"></a>1、命令执行</h4><p>在MySQL4中，可以通过UDF执行系统命令，尤其是当运行mysql进程的用户是root时，将直接获得root权限。Mysql5及之后的版本就无了，但是还有其他的方法——通过lib_mysqludf_sys提供的几个函数执行系统命令，其中最主要的时sys_eval()和sys_exec()。攻击过程中，将lib_mysqludf_sys.so上传到数据库能访问到的路径下，创建UDF之后，就可以使用sys_eval()等函数执行系统命令了。</p>
+<p>sqlmap集成了此功能 </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">python sqlmap.py -u <span class="hljs-string">&quot;url&quot;</span> --os-<span class="hljs-keyword">cmd</span><span class="bash"> -id -v 1</span><br></code></pre></td></tr></table></figure>
+
+<p>在MS SQL Server中，可以直接使用存储过程“xp_cmdshell”执行系统命令</p>
+<p>在Oracal数据库中，如果服务器环境同时还有Java环境，可以在Oracal中创建Java的存储过程执行系统命令。</p>
+<h4 id="2、攻击存储过程"><a href="#2、攻击存储过程" class="headerlink" title="2、攻击存储过程"></a>2、攻击存储过程</h4><p>臭名昭著的存储过程“xp_cmdshell”，在SQL Server 2000中默认开启，如果被关闭了可以用sp_addextendedproc开启，在SQL Server 2005及以后的版本中默认关闭，如果有sysadmin的权限，可以用sp_configue开启。</p>
+<p>存储过程本身也可能会存在注入漏洞</p>
+<h4 id="3、编码问题"><a href="#3、编码问题" class="headerlink" title="3、编码问题"></a>3、编码问题</h4><p>经典GBK下宽字节注入绕开转义字符，建议全部统一UTF-8</p>
+<h4 id="4、SQL-Column-Truncation"><a href="#4、SQL-Column-Truncation" class="headerlink" title="4、SQL Column Truncation"></a>4、SQL Column Truncation</h4><p>当MySQL的sql-mode设置为default时，即没有开启STRICT_ALL_TABLES时，MySQL对于用户插入的超长值只会提示warning，而不是error，并且会插入成功</p>
+<h3 id="3、正确地防御SQL注入"><a href="#3、正确地防御SQL注入" class="headerlink" title="3、正确地防御SQL注入"></a>3、正确地防御SQL注入</h3><h4 id="1、使用预编译语句"><a href="#1、使用预编译语句" class="headerlink" title="1、使用预编译语句"></a>1、使用预编译语句</h4><p>防御SQL注入的最佳方式，就是使用预编译语句，绑定变量。使用预编译的SQL语句，SQL语句的语义不会发生改变。在SQL语句中，变量用？表示，攻击者无法改变SQL结构。</p>
+<h4 id="2、使用存储过程"><a href="#2、使用存储过程" class="headerlink" title="2、使用存储过程"></a>2、使用存储过程</h4><p>使用安全的存储过程对抗SQL注入，和预编译语句类似，区别在于存储过程需要先将SQL语句定义在数据库中。存储过程主要应该尽量避免在存储过程内使用动态的SQL语句，无法避免的话应该使用严格的输入过滤或编码函数来处理用户的输入数据。</p>
+<p>有的时候无法使用预编译语句和存储过程，只能回到输入过滤和编码等方法上来。</p>
+<h4 id="3、检查数据类型"><a href="#3、检查数据类型" class="headerlink" title="3、检查数据类型"></a>3、检查数据类型</h4><p>可以很大程度上对抗SQL注入，但如果是需要用户提交字符串，就需要其他方法了</p>
+<h4 id="4、使用安全函数"><a href="#4、使用安全函数" class="headerlink" title="4、使用安全函数"></a>4、使用安全函数</h4><p>使用足够安全的编码函数，可以参考OWASP ESAPI中的实现</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ESAPI</span>.</span></span>encoder<span class="hljs-literal">()</span>.encode<span class="hljs-constructor">ForSQL( <span class="hljs-params">new</span> OracleCodec()</span> , queryparam )<br></code></pre></td></tr></table></figure>
+
+<p>在使用的时候：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Codec ORACLE_CODEC = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OracleCodec()</span>;<br>String query = <span class="hljs-string">&quot;SELECT user_id FROM user_data WHERE user_name = &#x27;&quot;</span> + <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ESAPI</span>.</span></span>encoder<span class="hljs-literal">()</span>.encode<span class="hljs-constructor">ForSQL( ORACLE_CODEC , <span class="hljs-params">req</span>.<span class="hljs-params">getParameter</span>(<span class="hljs-string">&quot;userID&quot;</span>)</span>) + <span class="hljs-string">&quot;&#x27; and user_password = &#x27;&quot;</span> + <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ESAPI</span>.</span></span>encoder<span class="hljs-literal">()</span>.encode<span class="hljs-constructor">ForSQL( ORACLE_CODEC , <span class="hljs-params">req</span>.<span class="hljs-params">getParameter</span>(<span class="hljs-string">&quot;pwd&quot;</span>)</span>) + <span class="hljs-string">&quot;&#x27;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4、其他注入"><a href="#4、其他注入" class="headerlink" title="4、其他注入"></a>4、其他注入</h3><h4 id="1、XML注入"><a href="#1、XML注入" class="headerlink" title="1、XML注入"></a>1、XML注入</h4><p>XML和HTML一样都是SGML（标准通用标记语言），也存在注入攻击，修补方案上对用户输入数据中包含的“语言本身的保留字符”进行转移即可</p>
+<h4 id="2、代码注入"><a href="#2、代码注入" class="headerlink" title="2、代码注入"></a>2、代码注入</h4><p>代码注入和命令注入往往都是由一些不安全的函数或者方法引起的，存在漏洞的地方跟“后门”没有区别</p>
+<p>JSP和PHP的动态include（文件包含漏洞）导致的代码执行，也可以算是一种代码注入</p>
+<p>尽量避免使用危险函数，一定要使用就需要对用户的输入数据进行处理</p>
+<h4 id="3、CRLF注入"><a href="#3、CRLF注入" class="headerlink" title="3、CRLF注入"></a>3、CRLF注入</h4><p>CRLF实际上是\r和\n两个用于换行的字符，通过“注入CRLF字符”就有可能改变原来的语义，防御方法也很简单，就是处理好这两个字符</p>
+<h2 id="第八章-文件上传漏洞"><a href="#第八章-文件上传漏洞" class="headerlink" title="第八章 文件上传漏洞"></a>第八章 文件上传漏洞</h2><h3 id="1、条件"><a href="#1、条件" class="headerlink" title="1、条件"></a>1、条件</h3><p>首先，上传的文件能够被web容器解释执行</p>
+<p>其次，用户能够从web上访问这个文件</p>
+<p>最后，用户上传的文件没有被安全检查，格式化，图片压缩等功能改变</p>
+<h3 id="2、绕过文件上传检查功能"><a href="#2、绕过文件上传检查功能" class="headerlink" title="2、绕过文件上传检查功能"></a>2、绕过文件上传检查功能</h3><h3 id="3、功能还是漏洞"><a href="#3、功能还是漏洞" class="headerlink" title="3、功能还是漏洞"></a>3、功能还是漏洞</h3><p>1、Apache文件解析问题</p>
+<p>2、IIS文件解析问题</p>
+<p>3、PHP CGI路径解析问题</p>
+<p>4、利用上传文件钓鱼</p>
+<h3 id="4、设计安全的文件上传功能"><a href="#4、设计安全的文件上传功能" class="headerlink" title="4、设计安全的文件上传功能"></a>4、设计安全的文件上传功能</h3><p>1、文件上传目录设置为不可执行</p>
+<p>2、判断文件类型</p>
+<p>3、使用随机数改写文件名和文件路径</p>
+<p>4、单独设置文件服务器的域名</p>
+<h2 id="第九章-认证与会话管理"><a href="#第九章-认证与会话管理" class="headerlink" title="第九章 认证与会话管理"></a>第九章 认证与会话管理</h2><h3 id="1、认证和授权"><a href="#1、认证和授权" class="headerlink" title="1、认证和授权"></a>1、认证和授权</h3><p>认证的目的是为了认出用户是谁，而授权的目的是为了决定用户能够做什么</p>
+<p>认证实际上就是一个验证凭证的过程</p>
+<h3 id="2、密码"><a href="#2、密码" class="headerlink" title="2、密码"></a>2、密码</h3><p>密码必须以不可逆的加密算法，或者是单向散列函数，加密后存储在数据库中</p>
+<h3 id="3、Session与认证"><a href="#3、Session与认证" class="headerlink" title="3、Session与认证"></a>3、Session与认证</h3><p>最常见的做法是把用户持有的SessionID加密后保存在Cookie中，SessionID在生命周期内被窃取，就等同于账户失窃，如果SessionID在Cookie里面，也可以称为Cookie劫持，当然也可以存在URL里面，但是不安全</p>
+<p>Cookie泄露的途径有很多，最常见的是XSS，网络Sniff，以及本地木马窃取</p>
+<h3 id="4、Session-Fixation攻击"><a href="#4、Session-Fixation攻击" class="headerlink" title="4、Session Fixation攻击"></a>4、Session Fixation攻击</h3><p>攻击过程：攻击者先获取到一个未认证的SessionID，然后将这个SessionID交给受害者去认证，受害者认证后，服务器并未更新此SessionID的值，所以攻击者可以直接凭借此SessionID登陆进受害者的账户</p>
+<p>如果SessionID存在Cookie中，比较难做到这个过程，但如果是URL，攻击者只需要诱使受害者打开这个URL即可</p>
+<p>解决Session Fixation的正确做法是，在登陆完成后，重写SessionID</p>
+<h3 id="5、Session保持攻击"><a href="#5、Session保持攻击" class="headerlink" title="5、Session保持攻击"></a>5、Session保持攻击</h3><p>攻击者可以通过不停地发起访问请求，让Session一直活下去</p>
+<p>常见的对抗做法是在一定时间后强制销毁Session，还可以选择的方法是当用户客户端发生变化时，要求用户重新登录，比如IP，UserAgent等</p>
+<h3 id="6、单点登录（SSO）"><a href="#6、单点登录（SSO）" class="headerlink" title="6、单点登录（SSO）"></a>6、单点登录（SSO）</h3><p>SSO希望用户登录一次就可以访问所有系统。其优缺点都是风险集中化</p>
+<h2 id="第十章-访问控制"><a href="#第十章-访问控制" class="headerlink" title="第十章 访问控制"></a>第十章 访问控制</h2><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><p>某个实体对某个客体需要实施某种操作，而系统对这种操作的限制就是权限控制</p>
+<p>在Web应用中，根据访问客体不同，常见的访问控制可以分为“基于URL的访问控制”，“基于方法的访问控制”和“基于数据的访问控制”</p>
+<h3 id="2、垂直权限控制"><a href="#2、垂直权限控制" class="headerlink" title="2、垂直权限控制"></a>2、垂直权限控制</h3><p>用户→角色→权限</p>
+<p>这种基于角色的权限管理（RBAC模型），称之为“垂直权限管理”</p>
+<h3 id="3、水平权限管理"><a href="#3、水平权限管理" class="headerlink" title="3、水平权限管理"></a>3、水平权限管理</h3><p>用户A与用户B可能属于同一个角色RoleX，但是用户A与用户B都各自拥有一些私有数据，在正常情况下，应该只有用户自己才能访问自己的私有数据。</p>
+<p>但是在上面的RBAC模型下，系统只会验证用户A是否属于角色RoleX，而不会判断用户A是否能访问只属于用户B的数据dataB,因此，发生了越权访问。这种问题，我们称之为“水平权限管理问题”。 </p>
+<h3 id="4、OAuth"><a href="#4、OAuth" class="headerlink" title="4、OAuth"></a>4、OAuth</h3><h2 id="第十一章-加密算法与随机数"><a href="#第十一章-加密算法与随机数" class="headerlink" title="第十一章 加密算法与随机数"></a>第十一章 加密算法与随机数</h2><h3 id="1、Stream-Cipher-Attack"><a href="#1、Stream-Cipher-Attack" class="headerlink" title="1、Stream Cipher Attack"></a>1、Stream Cipher Attack</h3><p>1、Reused Key Attack</p>
+<p>2、Bit-flipping Attack</p>
+<p>3、弱随机IV问题</p>
+<h3 id="2、WEP破解"><a href="#2、WEP破解" class="headerlink" title="2、WEP破解"></a>2、WEP破解</h3><h3 id="3、ECB模式的缺陷"><a href="#3、ECB模式的缺陷" class="headerlink" title="3、ECB模式的缺陷"></a>3、ECB模式的缺陷</h3><p>改变分组密文的顺序，将改变解密后的明文顺序，替换也是如此，当需要加密的明文多于一个分组的长度时，应该避免使用ECB模式</p>
+<h3 id="4、Padding-Oracle-Attack"><a href="#4、Padding-Oracle-Attack" class="headerlink" title="4、Padding Oracle Attack"></a>4、Padding Oracle Attack</h3><h3 id="5、密钥管理"><a href="#5、密钥管理" class="headerlink" title="5、密钥管理"></a>5、密钥管理</h3><p>将密钥保存在配置文件或者数据库中</p>
+<h3 id="6、伪随机数问题"><a href="#6、伪随机数问题" class="headerlink" title="6、伪随机数问题"></a>6、伪随机数问题</h3><p>1、弱伪随机数</p>
+<p>2、时间不随机</p>
+<p>3、破解种子：种子确定后，随机数的值和顺序都是固定的</p>
+<h3 id="7、建议"><a href="#7、建议" class="headerlink" title="7、建议"></a>7、建议</h3><p>1、不要使用ECB模式</p>
+<p>2、不要使用流密码（比如RC4）</p>
+<p>3、使用HMAC-SHA1代替MD5（甚至是代替SHA1）</p>
+<p>4、不要使用相同的key做不同的事情</p>
+<p>5、salts和IV需要随机生成</p>
+<p>6、不要自己实现加密算法</p>
+<p>7、不要依赖系统的保密性</p>
+<p>1、使用CBC模式的AES256用于加密</p>
+<p>2、使用HMAC-SHA512用于完整性检查</p>
+<p>3、使用带salt的SHA-256或SHA-512用于Hashing</p>
+<h2 id="第十二章-Web框架安全"><a href="#第十二章-Web框架安全" class="headerlink" title="第十二章 Web框架安全"></a>第十二章 Web框架安全</h2><h3 id="1、MVC框架安全"><a href="#1、MVC框架安全" class="headerlink" title="1、MVC框架安全"></a>1、MVC框架安全</h3><p>在现代Web开发中，使用MVC架构是一种流行的做法。MVC是Model-View-Controller的缩写，它将Web应用分为三层，View成负责用户视图、页面展示等工作；Controller负责应用的逻辑实现，接受View层传入的用户请求，并转发给对应的Model做处理；Model层则负责实现模型，完成数据的处理。</p>
+<p>SQL注入是Model层的问题</p>
+<h3 id="2、模板引擎与XSS防御"><a href="#2、模板引擎与XSS防御" class="headerlink" title="2、模板引擎与XSS防御"></a>2、模板引擎与XSS防御</h3><p>XSS是View层的问题，因此使用“输出编码”的防御方法更合理</p>
+<p>Django Templates支持的auto-escape，所有的变量都会经过HtmlEncode</p>
+<p>Velocity可以通过Event Handler来进行HtmlEncode</p>
+<p>但这两者都未细分编码使用的具体场景，通过自定义编码函数可以完善XSS防御</p>
+<h3 id="3、Web框架与CSRF防御"><a href="#3、Web框架与CSRF防御" class="headerlink" title="3、Web框架与CSRF防御"></a>3、Web框架与CSRF防御</h3><p>对于Web框架来说，可以自动地在所有涉及POST的代码中添加token，这些地方包括所有的form表单，所有的Ajax POST请求等</p>
+<p>完整的CSRF防御方案对于Web框架来说还有以下几处需要改动：</p>
+<p>1、在Session中绑定token，如果不能保存在服务器端的Session中，则保存在Cookie中</p>
+<p>2、在form表单中自动填入token字段</p>
+<p>3、在Ajax请求中自动添加token</p>
+<p>4、在服务器端对比POST提交参数的token与Session中绑定的token是否一致，以验证CSRF攻击</p>
+<h3 id="4、HTTP-Headers管理"><a href="#4、HTTP-Headers管理" class="headerlink" title="4、HTTP Headers管理"></a>4、HTTP Headers管理</h3><p>在Web框架中对HTTP头进行全局化管理</p>
+<h3 id="5、数据持久层与SQL注入"><a href="#5、数据持久层与SQL注入" class="headerlink" title="5、数据持久层与SQL注入"></a>5、数据持久层与SQL注入</h3><p>使用ORM框架对SQL注入有积极意义</p>
+<p>Django中的Database API默认对所有输入进行转义</p>
+<h2 id="第十三章-应用层拒绝服务攻击"><a href="#第十三章-应用层拒绝服务攻击" class="headerlink" title="第十三章 应用层拒绝服务攻击"></a>第十三章 应用层拒绝服务攻击</h2><h3 id="1、应用层DDOS"><a href="#1、应用层DDOS" class="headerlink" title="1、应用层DDOS"></a>1、应用层DDOS</h3><h4 id="1、应对"><a href="#1、应对" class="headerlink" title="1、应对"></a>1、应对</h4><p>1、应用层代码性能优化，将数据库压力转移到内存</p>
+<p>2、网络架构优化：负载均衡，缓解主服务器压力</p>
+<p>3、限制请求频率：</p>
+<h4 id="2、CC攻击"><a href="#2、CC攻击" class="headerlink" title="2、CC攻击"></a>2、CC攻击</h4><p>CC攻击的原理非常简单，就是对一些消耗资源比较大的应用不断发起正常的请求，以达到消耗服务器资源的目的。在Web应用中，查询数据库，读/写硬盘文件等操作，相对都会消耗比较多的资源。</p>
+<h4 id="3、限制请求频率"><a href="#3、限制请求频率" class="headerlink" title="3、限制请求频率"></a>3、限制请求频率</h4><p>最常见的针对应用层DDOS攻击的防御手段，是在应用中针对每个“客户端”做一个请求频率的限制</p>
+<p>但道高一尺，魔高一丈。基于IP地址和Cookie的防御机制可能会随着IP的改变而失效，比如使用“代理服务器”</p>
+<h3 id="2、资源耗尽攻击"><a href="#2、资源耗尽攻击" class="headerlink" title="2、资源耗尽攻击"></a>2、资源耗尽攻击</h3><h4 id="1、Slowloris-攻击"><a href="#1、Slowloris-攻击" class="headerlink" title="1、Slowloris 攻击"></a>1、Slowloris 攻击</h4><p>以极低的速度往服务器发送HTTP请求。由于Web Server对于并发的连接数都有一定的上限，因此若是恶意地占用住这些连接不释放，那么Web Server的所有连接都被恶意连接占用，从而无法接受新的请求，导致拒绝服务。要保持住这个连接，要构造一个畸形的HTTP请求，准确地说，是不完整的HTTP请求，让服务器以为后面还有数据没有传输完成，从而一直保持住连接</p>
+<p>此类拒绝服务攻击的本质，实际上是对有限资源的无限制滥用</p>
+<h4 id="2、HTTP-POST-DOS"><a href="#2、HTTP-POST-DOS" class="headerlink" title="2、HTTP POST DOS"></a>2、HTTP POST DOS</h4><p>发送post包时，指定一个非常大的Content-Length值，然后以非常低的速度发包</p>
+<h4 id="3、Server-Limit-DOS"><a href="#3、Server-Limit-DOS" class="headerlink" title="3、Server Limit DOS"></a>3、Server Limit DOS</h4><p>Apache能接受最大HTTP包头大小8192字节，请求体2G，超长Cookie会认为非正常请求导致客户端拒绝服务</p>
+<h4 id="4、正则ReDOS"><a href="#4、正则ReDOS" class="headerlink" title="4、正则ReDOS"></a>4、正则ReDOS</h4><h2 id="第十四章-PHP安全"><a href="#第十四章-PHP安全" class="headerlink" title="第十四章 PHP安全"></a>第十四章 PHP安全</h2><h3 id="1、文件包含漏洞"><a href="#1、文件包含漏洞" class="headerlink" title="1、文件包含漏洞"></a>1、文件包含漏洞</h3><p>要满足文件包含漏洞，需要满足以下两个条件：</p>
+<p>1）include()等函数通过动态变量的方式引入需要包含的文件</p>
+<p>2）用户能够控制该动态变量</p>
+<h4 id="1、文件本地包含"><a href="#1、文件本地包含" class="headerlink" title="1、文件本地包含"></a>1、文件本地包含</h4><p>设置open_basedir</p>
+<p>尽量避免使用动态变量</p>
+<h4 id="2、远程文件包含"><a href="#2、远程文件包含" class="headerlink" title="2、远程文件包含"></a>2、远程文件包含</h4><p>allow_url_include改成off</p>
+<h4 id="3、本地文件包含的利用技巧"><a href="#3、本地文件包含的利用技巧" class="headerlink" title="3、本地文件包含的利用技巧"></a>3、本地文件包含的利用技巧</h4><p>1、包含用户上传的文件</p>
+<p>2、包含为协议</p>
+<p>3、包含Session文件</p>
+<p>4、包含日治文佳</p>
+<p>5、包含/proc/self/environ文件</p>
+<p>6、包含上传的临时问价</p>
+<p>7、包含其他应用创建的文件</p>
+<h3 id="2、变量覆盖漏洞"><a href="#2、变量覆盖漏洞" class="headerlink" title="2、变量覆盖漏洞"></a>2、变量覆盖漏洞</h3><h4 id="1、全局变量覆盖"><a href="#1、全局变量覆盖" class="headerlink" title="1、全局变量覆盖"></a>1、全局变量覆盖</h4><h4 id="2、extract-变量覆盖"><a href="#2、extract-变量覆盖" class="headerlink" title="2、extract()变量覆盖"></a>2、extract()变量覆盖</h4><h4 id="3、遍历初始化变量"><a href="#3、遍历初始化变量" class="headerlink" title="3、遍历初始化变量"></a>3、遍历初始化变量</h4><h4 id="4、import-request-variables变量覆盖"><a href="#4、import-request-variables变量覆盖" class="headerlink" title="4、import_request_variables变量覆盖"></a>4、import_request_variables变量覆盖</h4><h4 id="5、parse-str-变量副覆盖"><a href="#5、parse-str-变量副覆盖" class="headerlink" title="5、parse_str()变量副覆盖"></a>5、parse_str()变量副覆盖</h4><h4 id="6、安全建议"><a href="#6、安全建议" class="headerlink" title="6、安全建议"></a>6、安全建议</h4><p>1、确保register_globals=OFF，若不能自定义php.ini，则应该在代码中控制</p>
+<p>2、熟悉可能造成变量覆盖的函数和方法，检查用户是否能控制变量来源</p>
+<p>3、养成初始化变量的习惯</p>
+<h3 id="3、代码执行漏洞"><a href="#3、代码执行漏洞" class="headerlink" title="3、代码执行漏洞"></a>3、代码执行漏洞</h3><p>两个条件：</p>
+<p>1、用户能控制函数的输入</p>
+<p>2、存在可以执行代码的危险函数</p>
+<h3 id="4、定制安全的PHP环境"><a href="#4、定制安全的PHP环境" class="headerlink" title="4、定制安全的PHP环境"></a>4、定制安全的PHP环境</h3><p>1、register_globals=OFF</p>
+<p>2、open_basedir限制目录</p>
+<p>3、allow_url_include=OFF</p>
+<p>4、allow_url_fopen=OFF</p>
+<p>5、display_errors=OFF</p>
+<p>6、log_errors=ON</p>
+<p>7、magic_quotes_gpc=OFF</p>
+<p>8、cgi.fix_pathinfo=0</p>
+<p>若是PHP以CGI的方式安装，则需要关闭次此项</p>
+<p>9、session.cookie_httponly=1</p>
+<p>10、session.cookie_secure=1</p>
+<p>若是全站HTTPS则开启此项</p>
+<p>11、safe_mode</p>
+<p>如果是共享环境则开启，如果是单独的应用环境则关闭</p>
+<p>12、disable_funcitons</p>
+<h2 id="第十五章-Web-Server配置安全"><a href="#第十五章-Web-Server配置安全" class="headerlink" title="第十五章 Web Server配置安全"></a>第十五章 Web Server配置安全</h2><h3 id="1、Apache安全"><a href="#1、Apache安全" class="headerlink" title="1、Apache安全"></a>1、Apache安全</h3><p>检查Apache安全的第一件事，就是检查Apache的Module安全情况，根据“最小权限原则”，应该尽可能地减少不必要的Module，对于要使用的Module，则检查其对应的版本是否存在已知的安全漏洞</p>
+<p>然后指定Apache进程以单独的用户身份运行</p>
+<h3 id="2、Nginx安全"><a href="#2、Nginx安全" class="headerlink" title="2、Nginx安全"></a>2、Nginx安全</h3><p>需要注意软件版本的安全，及时升级软件版本</p>
+<h3 id="3、jBoss和Tomcat"><a href="#3、jBoss和Tomcat" class="headerlink" title="3、jBoss和Tomcat"></a>3、jBoss和Tomcat</h3><p>建议直接删除这两个的后台</p>
+<h3 id="4、HTTP-Parameter-Pollution"><a href="#4、HTTP-Parameter-Pollution" class="headerlink" title="4、HTTP Parameter Pollution"></a>4、HTTP Parameter Pollution</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/08/%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《内网安全攻防》阅读笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/31/%E6%9E%97%E5%AD%A6%E9%95%BF%E7%9A%84%E9%A2%98%E7%9B%AE/">
+                        <span class="hidden-mobile">林学长的题目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
