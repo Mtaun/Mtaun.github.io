@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      19
        分钟
     </span>
   
@@ -278,6 +278,7 @@
 
 <h4 id="CVE-2020-11989-Apache-Shiro权限绕过漏洞"><a href="#CVE-2020-11989-Apache-Shiro权限绕过漏洞" class="headerlink" title="CVE-2020-11989 Apache Shiro权限绕过漏洞"></a>CVE-2020-11989 Apache Shiro权限绕过漏洞</h4><p>如果直接访问 <code>/test/admin/page</code> ，会返回302跳转要求登录</p>
 <p>但是访问 <code>/;/test/admin/page</code> , 就能直接绕过Shiro权限验证，访问到/admin路由中的信息</p>
+<h4 id="CVE-2020-28949、CVE-2020-28948-Drupal-远程代码执行漏洞"><a href="#CVE-2020-28949、CVE-2020-28948-Drupal-远程代码执行漏洞" class="headerlink" title="CVE-2020-28949、CVE-2020-28948 Drupal 远程代码执行漏洞"></a>CVE-2020-28949、CVE-2020-28948 Drupal 远程代码执行漏洞</h4><p>Drupal使用了PEAR Archive_Tar作为依赖库，在处理如.tar、.tar.gz、.bz2或.tlz等格式的压缩包时，由于过滤不严，可能导致存在PHAR反序列化漏洞，从而造成远程代码执行，影响版本：Drupal 9.0 : Drupal &lt; 9.0.9，Drupal 8.9 : Drupal &lt; 8.9.10，Drupal 8.8 : Drupal &lt; 8.8.12，Drupal 7 : Drupal &lt; 7.75</p>
 
             </div>
             <hr>
